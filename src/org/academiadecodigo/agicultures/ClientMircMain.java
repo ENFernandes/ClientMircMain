@@ -13,11 +13,8 @@ public class ClientMircMain implements Runnable{
     private BufferedWriter out;
     private static int port;
     private static String ip;
-    private String name;
 
     public ClientMircMain()  {
-        System.out.printf("Name:");
-        name=sc.nextLine();
         System.out.printf("Which server do you want to connect to?");
         ip = sc.nextLine();
         System.out.printf("Insert Port:");
@@ -29,32 +26,11 @@ public class ClientMircMain implements Runnable{
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        Thread thread=new Thread();
+        thread.start();
     }
     public static void main(String[] args) {
-            ClientMircMain client = new ClientMircMain();
-            client.sendMsg();
-    }
-
-    public void sendMsg () {
-        try {
-            out.write(name);
-            out.newLine();
-            out.flush();
-            Scanner scanner = new Scanner(System.in);
-            while (serverSocket.isConnected()) {
-                String teste = scanner.nextLine();
-                out.write(name + ": " + teste);
-                out.newLine();
-                out.flush();
-            }
-        }catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-    public void listMsg() {
-
+            new ClientMircMain();
     }
 
     @Override
@@ -65,8 +41,7 @@ public class ClientMircMain implements Runnable{
                 msg = in.readLine();
                 System.out.printf(msg);
             }
-        }catch (IOException e)
-        {
+        }catch (IOException e) {
 
         }
     }
